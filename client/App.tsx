@@ -52,7 +52,7 @@ interface ThemeConfig {
 const themes: ThemeConfig[] = [
   {
     id: 'default',
-    name: 'Professional',
+    name: 'Default',
     description: 'Clean professional design with sophisticated grays',
     colors: {
       primary: 'bg-gradient-to-r from-gray-900 to-gray-800',
@@ -65,7 +65,7 @@ const themes: ThemeConfig[] = [
   },
   {
     id: 'dark',
-    name: 'Dark Elite',
+    name: 'Dark',
     description: 'Premium dark theme with electric blue accents',
     colors: {
       primary: 'bg-gradient-to-r from-blue-600 to-purple-600',
@@ -78,20 +78,20 @@ const themes: ThemeConfig[] = [
   },
   {
     id: 'modern',
-    name: 'Ocean Wave',
-    description: 'Fresh ocean-inspired theme with gradient blues',
+    name: 'Ocean',
+    description: 'Deep ocean theme with flowing blue gradients',
     colors: {
-      primary: 'bg-gradient-to-r from-blue-500 to-cyan-500',
-      secondary: 'bg-gradient-to-br from-blue-50 to-cyan-50',
-      background: 'bg-white',
-      text: 'text-gray-900',
-      border: 'border-blue-200',
-      accent: 'text-blue-600'
+      primary: 'bg-gradient-to-r from-cyan-400 to-blue-500',
+      secondary: 'bg-gradient-to-br from-blue-600 to-blue-800',
+      background: 'bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900',
+      text: 'text-white',
+      border: 'border-blue-400',
+      accent: 'text-cyan-200'
     }
   },
   {
     id: 'minimal',
-    name: 'Arctic Mint',
+    name: 'Mint',
     description: 'Ultra-clean minimal design with subtle mint accents',
     colors: {
       primary: 'bg-gradient-to-r from-slate-700 to-emerald-600',
