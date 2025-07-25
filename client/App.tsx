@@ -230,13 +230,6 @@ function App() {
           </div>
           <h1 className="text-xl font-bold text-slate-900">Gemini ChatBot</h1>
         </div>
-        {/* Online/Offline indicator */}
-        <div className="flex items-center space-x-2">
-          <span className={`w-2 h-2 rounded-full inline-block ${isDotAppDomain() && serverStatus === 'connected' ? 'bg-green-500' : 'bg-red-500'}`} />
-          <span className={`${isDotAppDomain() && serverStatus === 'connected' ? 'text-green-600' : 'text-red-600'} text-sm font-medium`}>
-            {isDotAppDomain() && serverStatus === 'connected' ? 'Online' : 'Offline'}
-          </span>
-        </div>
       </header>
 
       {/* Enhanced Hero Section */}
