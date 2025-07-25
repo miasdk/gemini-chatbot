@@ -194,28 +194,46 @@ function App() {
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
-  const installCode = `npm install @google/generative-ai express cors dotenv react lucide-react`;
+  const installCode = `npm install @google/generative-ai express cors dotenv react lucide-react framer-motion react-icons`;
   
-  const usageCode = `import { GeminiChatBot } from './components/GeminiChatBot';
+  const usageCode = `// 1. Set up your backend server with Gemini API
+// server/index.ts
+import express from 'express';
+import cors from 'cors';
+import { ChatBot } from './chatbot';
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const chatBot = new ChatBot();
+
+app.post('/api/chat', async (req, res) => {
+  const { message, persona, userId, context } = req.body;
+  const response = await chatBot.generateResponse(message, persona, context);
+  res.json({ response });
+});
+
+app.listen(3001);
+
+// 2. Use the component in your React app
+// App.tsx
+import { useState } from 'react';
+import { ChatInterface } from './components/ChatInterface';
+
+const personas = [
+  { id: 'tutor', name: 'AI Tutor', icon: '🧠' },
+  { id: 'assistant', name: 'Assistant', icon: '🤖' }
+];
 
 function App() {
+  const [selectedPersona, setSelectedPersona] = useState(personas[0]);
+  
   return (
-    <div>
-      <GeminiChatBot
-        config={{
-          persona: 'tutor',
-          userId: 'user123',
-          welcomeMessage: 'Hi! How can I help you learn?',
-          theme: 'light',
-          position: 'bottom-right',
-          placeholder: 'Ask me anything...'
-        }}
-        context={{
-          subject: 'JavaScript',
-          userLevel: 'beginner'
-        }}
-        onMessageSent={(msg) => console.log('User:', msg)}
-        onMessageReceived={(response) => console.log('AI:', response)}
+    <div className="app">
+      <ChatInterface 
+        persona={selectedPersona}
+        apiUrl="/api/chat"
       />
     </div>
   );
@@ -224,65 +242,84 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 bg-white/80 border-b border-slate-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 flex items-center justify-center">
-            <Bot className="w-6 h-6 text-black" />
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
+                <MessageCircle className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h1 className="text-lg font-semibold text-gray-900">Gemini ChatBot</h1>
+                <div className="flex items-center space-x-2">
+                  <div className={`w-2 h-2 rounded-full ${
+                    serverStatus === 'connected' ? 'bg-green-500' :
+                    serverStatus === 'disconnected' ? 'bg-red-500' : 'bg-gray-500'
+                  }`}></div>
+                  <span className="text-xs text-gray-500">
+                    {serverStatus === 'connected' ? 'Online' : 
+                     serverStatus === 'disconnected' ? 'Offline' : 'Starting...'}
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <button 
+                onClick={() => {
+                  setShowImplementation(!showImplementation);
+                  setTimeout(() => {
+                    const integrationSection = document.getElementById('integration-section');
+                    if (integrationSection) {
+                      integrationSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100);
+                }}
+                className={`px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  showImplementation 
+                    ? 'bg-gray-900 text-white' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <Code className="w-4 h-4 inline mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Integration</span>
+                <span className="sm:hidden">Code</span>
+              </button>
+              
+              <a 
+                href="https://github.com/miasdk/gemini-chatbot" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-1 sm:space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                <span className="text-sm hidden sm:inline">GitHub</span>
+              </a>
+            </div>
           </div>
-          <h1 className="text-xl font-bold text-slate-900">Gemini ChatBot</h1>
-        </div>
-        <div className="flex items-center space-x-4">
-          <button 
-            onClick={() => {
-              setShowImplementation(!showImplementation);
-              setTimeout(() => {
-                const integrationSection = document.getElementById('integration-section');
-                if (integrationSection) {
-                  integrationSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }, 100);
-            }}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              showImplementation 
-                ? 'bg-gray-900 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            <Code className="w-4 h-4 inline mr-2" />
-            Integration
-          </button>
-          <a 
-            href="https://github.com/miasdk/gemini-chatbot" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <Github className="w-4 h-4" />
-            <span className="text-sm">GitHub</span>
-          </a>
         </div>
       </header>
 
       {/* Enhanced Hero Section */}
       <section className="bg-gradient-to-br from-gray-50 to-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 py-16 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 text-center">
           <a href="https://ai.google.dev/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium mb-8 hover:bg-gray-800 transition-colors cursor-pointer">
             <span>Powered by Google Gemini AI</span>
             <ExternalLink className="w-3 h-3 ml-1" />
           </a>
           
           <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
             Smart Chat Component
-            <span className="block text-gray-600 mt-3 text-2xl md:text-3xl font-normal">For Modern Applications</span>
+            <span className="block text-gray-600 mt-2 sm:mt-3 text-xl sm:text-2xl md:text-3xl font-normal">For Modern Applications</span>
           </motion.h1>
           
           <motion.p 
-            className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -304,16 +341,16 @@ function App() {
       </section>
 
       {/* Chat Demo Section */}
-      <div className="flex-1 bg-gray-50 py-12">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <p className="text-gray-600">Interactive demo with persona switching and theme customization</p>
+      <div className="flex-1 bg-gray-50 py-8 sm:py-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <p className="text-gray-600 text-sm sm:text-base">Interactive demo with persona switching and theme customization</p>
             
             {/* Theme Selector */}
-            <div className="mt-6 flex justify-center">
-              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-4">
+            <div className="mt-4 sm:mt-6 flex justify-center">
+              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-3 sm:p-4 w-full max-w-md sm:max-w-none sm:w-auto">
                 <h4 className="text-sm font-semibold text-gray-900 mb-3">Choose Theme</h4>
-                <div className="flex space-x-3">
+                <div className="grid grid-cols-2 sm:flex gap-2 sm:gap-3">
                   {themes.map((theme) => (
                     <button
                       key={theme.id}
@@ -322,7 +359,7 @@ function App() {
                         setChatKey(prev => prev + 1);
                       }}
                       className={cn(
-                        "px-3 py-2 rounded-lg text-xs font-medium transition-all",
+                        "px-2 sm:px-3 py-2 rounded-lg text-xs font-medium transition-all text-center",
                         selectedTheme === theme.id
                           ? 'bg-gray-900 text-white shadow-md'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -332,17 +369,17 @@ function App() {
                     </button>
                   ))}
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-gray-500 mt-2 px-1">
                   {themes.find(t => t.id === selectedTheme)?.description}
                 </p>
               </div>
             </div>
           </div>
           
-          <div className="flex gap-6 items-start">
+          <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-start">
             {/* Persona Selector */}
             <motion.div 
-              className="w-64 bg-white rounded-2xl shadow-lg border border-gray-200 p-4"
+              className="w-full lg:w-64 bg-white rounded-2xl shadow-lg border border-gray-200 p-4"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
@@ -405,7 +442,7 @@ function App() {
             {/* Chat Dialogue Box */}
             <motion.div 
               className={cn(
-                "flex-1 max-w-2xl rounded-2xl shadow-lg overflow-hidden",
+                "flex-1 w-full lg:max-w-2xl rounded-2xl shadow-lg overflow-hidden",
                 themes.find(t => t.id === selectedTheme)?.colors.background,
                 themes.find(t => t.id === selectedTheme)?.colors.border,
                 "border"
@@ -455,7 +492,7 @@ function App() {
               </motion.div>
 
               {/* Chat Interface */}
-              <div className="h-[500px]">
+              <div className="h-[400px] sm:h-[500px]">
                 <ChatInterface 
                   key={`${chatKey}-${selectedTheme}`}
                   persona={selectedPersona}
@@ -467,16 +504,16 @@ function App() {
       </div>
 
       {/* Display Configurations Section */}
-      <section className="bg-white py-16 border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Display Configurations</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+      <section className="bg-white py-12 sm:py-16 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Display Configurations</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
               See how the chat component appears in different layouts and positions when integrated into your application
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Floating Bottom Right */}
             <motion.div
               className="group"
@@ -682,24 +719,21 @@ function App() {
             </motion.div>
           </div>
 
-          <div className="text-center mt-12">
-            <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
+          <div className="text-center mt-8 sm:mt-12">
+            <div className="bg-blue-50 rounded-xl p-4 sm:p-6 border border-blue-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 <Sparkles className="inline w-5 h-5 mr-2 text-blue-600" />
                 Fully Customizable
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 mb-4 text-sm sm:text-base">
                 Configure position, themes, personas, and behavior to match your application perfectly
               </p>
-              <div className="flex justify-center space-x-4 text-sm">
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-4 text-sm">
                 <span className="bg-white px-3 py-1 rounded-full border border-blue-200">
-                  🎨 Custom Themes
+                  Custom Themes
                 </span>
                 <span className="bg-white px-3 py-1 rounded-full border border-blue-200">
-                  📱 Responsive Design
-                </span>
-                <span className="bg-white px-3 py-1 rounded-full border border-blue-200">
-                  🔧 TypeScript Ready
+                  TypeScript Ready
                 </span>
               </div>
             </div>
@@ -710,16 +744,16 @@ function App() {
       {/* Implementation Instructions */}
       {showImplementation && (
         <section id="integration-section" className="bg-gray-100 border-t border-gray-200">
-          <div className="max-w-6xl mx-auto px-6 py-12">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                <Code className="inline w-6 h-6 mr-2" />
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
+                <Code className="inline w-5 sm:w-6 h-5 sm:h-6 mr-2" />
                 Integration Instructions
               </h2>
-              <p className="text-gray-600">Add this AI chat component to your React application</p>
+              <p className="text-gray-600 text-sm sm:text-base">Add this AI chat component to your React application</p>
             </div>
             
-            <div className="max-w-4xl mx-auto space-y-8">
+            <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-gray-900">1. Install Dependencies</h3>
@@ -731,8 +765,8 @@ function App() {
                     <span>{copiedCode === 'install' ? 'Copied!' : 'Copy'}</span>
                   </button>
                 </div>
-                <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
-                  <code className="text-gray-100 text-sm font-mono whitespace-pre">
+                <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
+                  <code className="text-gray-100 text-xs sm:text-sm font-mono whitespace-pre">
                     {installCode}
                   </code>
                 </div>
@@ -749,8 +783,8 @@ function App() {
                     <span>{copiedCode === 'usage' ? 'Copied!' : 'Copy'}</span>
                   </button>
                 </div>
-                <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
-                  <code className="text-gray-100 text-sm font-mono whitespace-pre">
+                <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
+                  <code className="text-gray-100 text-xs sm:text-sm font-mono whitespace-pre">
                     {usageCode}
                   </code>
                 </div>
@@ -792,8 +826,8 @@ function App() {
       )}
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      <footer className="bg-gray-900 text-white py-6 sm:py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <div className="flex items-center justify-center space-x-3 mb-4">
             <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
               <Bot className="w-4 h-4 text-gray-900" />
