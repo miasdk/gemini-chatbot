@@ -9,7 +9,27 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000', 'http://localhost:3001'],
+    origin: (origin, callback) => {
+        const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000', 'http://localhost:3001'];
+        // Allow requests with no origin (mobile apps, etc.)
+        if (!origin)
+            return callback(null, true);
+        // Check if origin matches allowed origins or Vercel patterns
+        const isAllowed = allowedOrigins.some(allowed => {
+            if (allowed === origin)
+                return true;
+            // Allow all Vercel deployment URLs
+            if (origin.includes('.vercel.app'))
+                return true;
+            return false;
+        });
+        if (isAllowed) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 // Basic rate limiting (in production, use Redis-based rate limiting)
