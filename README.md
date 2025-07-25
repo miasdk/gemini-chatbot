@@ -1,68 +1,80 @@
 # Smart Chat Component
 
-A React component with intelligent AI personas powered by Google Gemini. Perfect for customer support, tutoring, and code assistance.
+A production-ready React component with intelligent AI personas powered by Google Gemini. Features TypeScript support, multiple themes, and responsive design for customer support, tutoring, and code assistance applications.
 
 ## Features
 
 - **Google Gemini AI** - Fast, intelligent responses with Gemini 1.5 Flash
 - **Multiple Personas** - Tutor, Assistant, Support Agent, Code Reviewer
 - **TypeScript Ready** - Full type safety and IntelliSense support
+- **Theme System** - 4 built-in themes with customization options
+- **Responsive Design** - Works seamlessly on desktop, tablet, and mobile
 - **Context Aware** - Domain-specific conversations with custom context
-- **Easy Integration** - Drop into any React application
+- **Easy Integration** - Copy components to your React application
 
 ## Quick Start
 
-### Installation
+### 1. Clone & Install
 
 ```bash
-npm install @google/generative-ai express cors dotenv react lucide-react framer-motion
+git clone https://github.com/miasdk/gemini-chatbot.git
+cd gemini-chatbot
+npm install
 ```
 
-### Basic Usage
+### 2. Environment Setup
+
+Create a `.env` file in the project root:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+NODE_ENV=development
+PORT=3001
+```
+
+### 3. Run Development Servers
+
+```bash
+npm run dev          # Starts backend server (port 3001)
+npm run dev:frontend # Starts frontend (port 3000)
+```
+
+Visit `http://localhost:3000` to see the interactive demo.
+
+### 4. Use Components in Your App
+
+Copy the components you need from the project:
+- `/client/components/ChatInterface` - Main chat component
+- `/client/components/ui/*` - UI components (buttons, etc.)
+- `/server/*` - Backend API (optional, if you want your own server)
 
 ```tsx
-import { GeminiChatBot } from './components/GeminiChatBot';
+import { useState } from 'react';
+import { ChatInterface } from './components/ChatInterface';
+
+const personas = [
+  { 
+    id: 'tutor', 
+    name: 'AI Tutor', 
+    description: 'Educational guidance',
+    icon: <Brain className="w-5 h-5" />,
+    welcomeMessage: 'Hi! How can I help you learn?'
+  }
+];
 
 function App() {
+  const [selectedPersona, setSelectedPersona] = useState(personas[0]);
+  
   return (
-    <GeminiChatBot
-      config={{
-        persona: 'tutor',
-        userId: 'user123',
-        welcomeMessage: 'Hi! How can I help you learn?',
-        theme: 'light',
-        position: 'bottom-right',
-        placeholder: 'Ask me anything...'
-      }}
-      context={{
-        subject: 'JavaScript',
-        userLevel: 'beginner'
-      }}
-      onMessageSent={(msg) => console.log('User:', msg)}
-      onMessageReceived={(response) => console.log('AI:', response)}
-    />
+    <div className="app">
+      <ChatInterface 
+        persona={selectedPersona}
+        key={selectedPersona.id}
+      />
+    </div>
   );
 }
 ```
-
-### Environment Setup
-
-```bash
-# .env
-GEMINI_API_KEY=your_gemini_api_key_here
-PORT=3001
-NODE_ENV=development
-```
-
-### Run the Demo
-
-```bash
-npm install
-npm run build
-npm start
-```
-
-Visit `http://localhost:3001` to see the interactive demo.
 
 ## Available Personas
 
@@ -73,7 +85,7 @@ Visit `http://localhost:3001` to see the interactive demo.
 | **Support** | Customer support with empathy | Help desk, troubleshooting |
 | **Code Reviewer** | Expert code analysis and feedback | Development, code review |
 
-## ⚙️ Configuration
+## Configuration
 
 ### Component Props
 
@@ -116,7 +128,7 @@ export const config = {
 };
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Send Message
 ```
@@ -198,28 +210,44 @@ const customPersona = {
 
 ## Deployment
 
-### Vercel
-```bash
-npm run build
-vercel --prod
-```
+### Split Deployment (Recommended)
 
-### Docker
+**Frontend (Vercel):**
+1. Connect your GitHub repository to Vercel
+2. Set build command: `npm run build` (builds client)
+3. Set output directory: `dist`
+4. Deploy automatically on push
+
+**Backend (Render/Railway):**
+1. Connect your GitHub repository to Render
+2. Set build command: `npm install && npm run build:server`
+3. Set start command: `node dist-server/index.js`
+4. Add environment variables:
+   ```
+   GEMINI_API_KEY=your_api_key
+   NODE_ENV=production
+   ALLOWED_ORIGINS=https://your-vercel-app.vercel.app
+   ```
+
+### Full Stack Deployment
+
+**Docker:**
 ```dockerfile
 FROM node:18-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+RUN npm run build:full
 EXPOSE 3001
 CMD ["npm", "start"]
 ```
 
-### Railway/Render
-1. Connect your repository
-2. Set environment variables
-3. Deploy with `npm run build && npm start`
+**Single Platform:**
+1. Deploy to Railway/Render/Heroku
+2. Set build command: `npm run build:full`
+3. Set start command: `npm start`
+4. Add environment variables
 
 ## Contributing
 
@@ -229,7 +257,7 @@ CMD ["npm", "start"]
 4. Push to branch: `git push origin feature/my-feature`
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
