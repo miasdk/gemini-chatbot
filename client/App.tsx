@@ -220,8 +220,12 @@ function App() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
-                <MessageCircle className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600">
+                {/* Gemini-like icon: two overlapping circles */}
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="10" cy="12" r="7" fill="#60A5FA" fillOpacity="0.85" />
+                  <circle cx="14" cy="12" r="7" fill="#A78BFA" fillOpacity="0.85" />
+                </svg>
               </div>
               <div>
                 <h1 className="text-lg font-semibold text-gray-900">Gemini ChatBot</h1>
@@ -550,7 +554,7 @@ function App() {
                       className="inline-flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
                     >
                       <Github className="w-4 h-4" />
-                      <span>Read More Documentation</span>
+                      <span>Read More Here!</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
