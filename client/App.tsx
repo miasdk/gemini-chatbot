@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
+import { FaHeart } from 'react-icons/fa';
 import { 
   Bot, 
   User, 
@@ -18,6 +19,10 @@ import {
 } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { cn } from './lib/utils';
+
+const profile = {
+  name: "Mia Elena"
+};
 
 interface PersonaConfig {
   id: string;
@@ -255,10 +260,15 @@ function App() {
                 Integration
               </button>
               
-              <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors">
+              <a 
+                href="https://github.com/miasdk/gemini-chatbot" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
                 <Github className="w-4 h-4" />
                 <span className="text-sm">GitHub</span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -267,10 +277,11 @@ function App() {
       {/* Enhanced Hero Section */}
       <section className="bg-gradient-to-br from-gray-50 to-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-16 text-center">
-          <div className="inline-flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium mb-8">
+          <a href="https://ai.google.dev/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium mb-8 hover:bg-gray-800 transition-colors cursor-pointer">
             <Bot className="w-4 h-4" />
             <span>Powered by Google Gemini AI</span>
-          </div>
+            <ExternalLink className="w-3 h-3 ml-1" />
+          </a>
           
           <motion.h1 
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
@@ -528,8 +539,20 @@ function App() {
                       <p className="text-sm text-gray-600">Start conversations with any of the 4 AI personas</p>
                     </div>
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600 mb-4">
                     💡 <strong>Pro tip:</strong> Customize the context prop to make conversations more relevant to your domain
+                  </div>
+                  <div className="flex items-center justify-center pt-4 border-t border-green-200">
+                    <a 
+                      href="https://github.com/miasdk/gemini-chatbot" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span>Read More Documentation</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </div>
               </div>
@@ -550,19 +573,27 @@ function App() {
           </div>
           
           <p className="text-gray-400 mb-4">
-            Production-ready AI chatbot component for React applications
+            Smart AI chatbot component for React applications
           </p>
           
           <div className="flex items-center justify-center space-x-6">
-            <button className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
+            <a 
+              href="https://github.com/miasdk/gemini-chatbot" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+            >
               <Github className="w-4 h-4" />
               <span className="text-sm">GitHub</span>
-            </button>
+            </a>
           </div>
           
           <div className="border-t border-gray-800 mt-6 pt-4">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-sm mb-2">
               Built with TypeScript, React, and Google Gemini AI
+            </p>
+            <p className="text-gray-500 text-sm">
+              Made with <FaHeart className="inline text-red-500" /> by {profile.name}
             </p>
           </div>
         </div>
