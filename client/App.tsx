@@ -158,6 +158,13 @@ const personas: PersonaConfig[] = [
   }
 ];
 
+function isDotAppDomain() {
+  if (typeof window !== 'undefined') {
+    return window.location.hostname.endsWith('.app');
+  }
+  return false;
+}
+
 function App() {
   const [selectedPersona, setSelectedPersona] = useState<PersonaConfig>(personas[0]);
   const [serverStatus, setServerStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
@@ -216,62 +223,20 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 flex items-center justify-center">
-                <Bot className="w-6 h-6 text-black" />
-              </div>
-              <div>
-                <h1 className="text-lg font-semibold text-gray-900">Gemini ChatBot</h1>
-                <div className="flex items-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${
-                    serverStatus === 'connected' ? 'bg-gray-600' :
-                    serverStatus === 'disconnected' ? 'bg-gray-400' : 'bg-gray-500'
-                  }`}></div>
-                  <span className="text-xs text-gray-500">
-                    {serverStatus === 'connected' ? 'Online' : 
-                     serverStatus === 'disconnected' ? 'Offline' : 'Starting...'}
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={() => {
-                  setShowImplementation(!showImplementation);
-                  // Scroll to integration section
-                  setTimeout(() => {
-                    const integrationSection = document.getElementById('integration-section');
-                    if (integrationSection) {
-                      integrationSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }, 100);
-                }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  showImplementation 
-                    ? 'bg-gray-900 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <Code className="w-4 h-4 inline mr-2" />
-                Integration
-              </button>
-              
-              <a 
-                href="https://github.com/miasdk/gemini-chatbot" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                <span className="text-sm">GitHub</span>
-              </a>
-            </div>
+      <header className="flex items-center justify-between px-6 py-4 bg-white/80 border-b border-slate-200">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 flex items-center justify-center">
+            <Bot className="w-6 h-6 text-black" />
           </div>
+          <h1 className="text-xl font-bold text-slate-900">Gemini ChatBot</h1>
         </div>
+        {/* Offline indicator if not on .app domain */}
+        {!isDotAppDomain() && (
+          <div className="flex items-center space-x-2">
+            <span className="w-2 h-2 bg-red-500 rounded-full inline-block" />
+            <span className="text-red-600 text-sm font-medium">Offline</span>
+          </div>
+        )}
       </header>
 
       {/* Enhanced Hero Section */}
