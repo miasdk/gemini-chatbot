@@ -11,7 +11,6 @@
     "outDir": "./dist-server",
     "rootDir": "./server",
     "skipLibCheck": true,
-    "types": ["node"],
 
     /* Linting */
     "strict": true,
