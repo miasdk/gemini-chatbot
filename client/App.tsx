@@ -194,36 +194,36 @@ function App() {
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
-  const installCode = `npm install @google/generative-ai express cors dotenv react lucide-react framer-motion react-icons`;
+  const installCode = `git clone https://github.com/miasdk/gemini-chatbot.git
+cd gemini-chatbot
+npm install`;
+
+  const setupCode = `# 1. Create your .env file
+GEMINI_API_KEY=your_gemini_api_key_here
+NODE_ENV=development
+PORT=3001
+
+# 2. Start the development servers
+npm run dev          # Starts backend server (port 3001)
+npm run dev:frontend # Starts frontend (port 3000)`;
   
-  const usageCode = `// 1. Set up your backend server with Gemini API
-// server/index.ts
-import express from 'express';
-import cors from 'cors';
-import { ChatBot } from './chatbot';
+  const usageCode = `// Copy the components you need from the project:
+// - /client/components/ChatInterface (main chat component)
+// - /client/components/ui/* (UI components)
+// - /server/* (backend API)
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-const chatBot = new ChatBot();
-
-app.post('/api/chat', async (req, res) => {
-  const { message, persona, userId, context } = req.body;
-  const response = await chatBot.generateResponse(message, persona, context);
-  res.json({ response });
-});
-
-app.listen(3001);
-
-// 2. Use the component in your React app
-// App.tsx
+// Example: Using ChatInterface in your React app
 import { useState } from 'react';
 import { ChatInterface } from './components/ChatInterface';
 
 const personas = [
-  { id: 'tutor', name: 'AI Tutor', icon: '🧠' },
-  { id: 'assistant', name: 'Assistant', icon: '🤖' }
+  { 
+    id: 'tutor', 
+    name: 'AI Tutor', 
+    description: 'Educational guidance',
+    icon: <Brain className="w-5 h-5" />,
+    welcomeMessage: 'Hi! How can I help you learn?'
+  }
 ];
 
 function App() {
@@ -233,7 +233,7 @@ function App() {
     <div className="app">
       <ChatInterface 
         persona={selectedPersona}
-        apiUrl="/api/chat"
+        key={selectedPersona.id}
       />
     </div>
   );
@@ -756,7 +756,7 @@ function App() {
             <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">1. Install Dependencies</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">1. Clone & Install</h3>
                   <button 
                     onClick={() => copyToClipboard(installCode, 'install')}
                     className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900"
@@ -774,7 +774,25 @@ function App() {
               
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">2. Use Component</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">2. Setup & Run</h3>
+                  <button 
+                    onClick={() => copyToClipboard(setupCode, 'setup')}
+                    className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    {copiedCode === 'setup' ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    <span>{copiedCode === 'setup' ? 'Copied!' : 'Copy'}</span>
+                  </button>
+                </div>
+                <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
+                  <code className="text-gray-100 text-xs sm:text-sm font-mono whitespace-pre">
+                    {setupCode}
+                  </code>
+                </div>
+              </div>
+              
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">3. Use Component</h3>
                   <button 
                     onClick={() => copyToClipboard(usageCode, 'usage')}
                     className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
@@ -791,7 +809,7 @@ function App() {
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">3. That's it! Enjoy your new context-aware chat box component 🎉</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">4. That's it! Your AI chat component is ready 🎉</h3>
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6">
                   <div className="flex items-center space-x-3 mb-3">
                     <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
