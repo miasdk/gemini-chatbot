@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Button } from './components/ui/button';
 import { cn } from './lib/utils';
+import { apiEndpoints } from './config';
 
 const profile = {
   name: "Mia Elena"
@@ -175,7 +176,7 @@ function App() {
 
   useEffect(() => {
     // Check server status
-    fetch('/api/health')
+    fetch(apiEndpoints.health)
       .then(res => res.json())
       .then(() => setServerStatus('connected'))
       .catch(() => setServerStatus('disconnected'));
@@ -621,7 +622,7 @@ function ChatInterface({ persona }: { persona: PersonaConfig }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch(apiEndpoints.chat, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
