@@ -66,27 +66,27 @@ const themes: ThemeConfig[] = [
   {
     id: 'dark',
     name: 'Dark',
-    description: 'Premium dark theme with electric blue accents',
+    description: 'Professional dark theme with sophisticated styling',
     colors: {
-      primary: 'bg-gradient-to-r from-blue-600 to-purple-600',
-      secondary: 'bg-gradient-to-br from-gray-800 to-gray-900',
-      background: 'bg-gray-900',
+      primary: 'bg-gradient-to-r from-slate-700 to-slate-800',
+      secondary: 'bg-gradient-to-br from-slate-700 to-slate-800',
+      background: 'bg-slate-800',
       text: 'text-white',
-      border: 'border-gray-700',
-      accent: 'text-blue-300'
+      border: 'border-slate-600',
+      accent: 'text-slate-300'
     }
   },
   {
     id: 'modern',
     name: 'Ocean',
-    description: 'Deep ocean theme with flowing blue gradients',
+    description: 'Professional ocean theme with calming blues',
     colors: {
-      primary: 'bg-gradient-to-r from-cyan-400 to-blue-500',
-      secondary: 'bg-gradient-to-br from-blue-600 to-blue-800',
-      background: 'bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900',
+      primary: 'bg-gradient-to-r from-blue-500 to-blue-600',
+      secondary: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      background: 'bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700',
       text: 'text-white',
       border: 'border-blue-400',
-      accent: 'text-cyan-200'
+      accent: 'text-blue-100'
     }
   },
   {
@@ -1056,8 +1056,10 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
               placeholder={`Message ${persona.name}...`}
               className={cn(
                 "w-full p-4 rounded-xl resize-none focus:outline-none focus:ring-2 focus:border-transparent transition-all",
-                theme.id === 'dark' || theme.id === 'modern' 
-                  ? `bg-opacity-20 bg-white border-opacity-30 border-white ${theme.colors.text} placeholder-gray-300 focus:ring-white focus:ring-opacity-50`
+                theme.id === 'dark'
+                  ? "bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:ring-slate-500"
+                  : theme.id === 'modern' 
+                  ? "bg-blue-600 border border-blue-500 text-white placeholder-blue-200 focus:ring-blue-400"
                   : "bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:ring-gray-900"
               )}
               rows={1}
@@ -1072,8 +1074,10 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
               "p-3 rounded-xl transition-all transform hover:scale-105",
               inputMessage.trim() && !isLoading
                 ? `${theme.colors.primary} text-white hover:opacity-90 shadow-md`
-                : theme.id === 'dark' || theme.id === 'modern'
-                  ? 'bg-white bg-opacity-20 text-gray-300 cursor-not-allowed'
+                : theme.id === 'dark'
+                  ? 'bg-slate-600 text-slate-400 cursor-not-allowed'
+                  : theme.id === 'modern'
+                  ? 'bg-blue-500 text-blue-200 cursor-not-allowed'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             )}
           >
