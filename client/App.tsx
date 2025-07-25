@@ -29,6 +29,75 @@ interface PersonaConfig {
   sampleMessages: string[];
 }
 
+interface ThemeConfig {
+  id: 'default' | 'dark' | 'modern' | 'minimal';
+  name: string;
+  description: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    background: string;
+    text: string;
+    border: string;
+    accent: string;
+  };
+}
+
+const themes: ThemeConfig[] = [
+  {
+    id: 'default',
+    name: 'Default',
+    description: 'Clean gray theme with professional look',
+    colors: {
+      primary: 'bg-gray-900',
+      secondary: 'bg-gray-50',
+      background: 'bg-white',
+      text: 'text-gray-900',
+      border: 'border-gray-200',
+      accent: 'text-gray-600'
+    }
+  },
+  {
+    id: 'dark',
+    name: 'Dark Mode',
+    description: 'Elegant dark theme for low-light environments',
+    colors: {
+      primary: 'bg-blue-600',
+      secondary: 'bg-gray-800',
+      background: 'bg-gray-900',
+      text: 'text-white',
+      border: 'border-gray-700',
+      accent: 'text-gray-300'
+    }
+  },
+  {
+    id: 'modern',
+    name: 'Modern Blue',
+    description: 'Vibrant blue accents with modern styling',
+    colors: {
+      primary: 'bg-blue-500',
+      secondary: 'bg-blue-50',
+      background: 'bg-white',
+      text: 'text-gray-900',
+      border: 'border-blue-200',
+      accent: 'text-blue-600'
+    }
+  },
+  {
+    id: 'minimal',
+    name: 'Minimal',
+    description: 'Ultra-clean design with subtle accents',
+    colors: {
+      primary: 'bg-slate-600',
+      secondary: 'bg-slate-50',
+      background: 'bg-white',
+      text: 'text-slate-900',
+      border: 'border-slate-200',
+      accent: 'text-slate-500'
+    }
+  }
+];
+
 const personas: PersonaConfig[] = [
   {
     id: 'tutor',
@@ -90,6 +159,7 @@ function App() {
   const [chatKey, setChatKey] = useState<number>(0);
   const [showImplementation, setShowImplementation] = useState(true);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [selectedTheme, setSelectedTheme] = useState<'default' | 'dark' | 'modern' | 'minimal'>('default');
 
   useEffect(() => {
     // Check server status
@@ -156,8 +226,8 @@ function App() {
                     serverStatus === 'disconnected' ? 'bg-gray-400' : 'bg-gray-500'
                   }`}></div>
                   <span className="text-xs text-gray-500">
-                    {serverStatus === 'connected' ? 'Connected' : 
-                     serverStatus === 'disconnected' ? 'Offline' : 'Connecting...'}
+                    {serverStatus === 'connected' ? 'Online' : 
+                     serverStatus === 'disconnected' ? 'Offline' : 'Starting...'}
                   </span>
                 </div>
               </div>
@@ -165,7 +235,16 @@ function App() {
             
             <div className="flex items-center space-x-4">
               <button 
-                onClick={() => setShowImplementation(!showImplementation)}
+                onClick={() => {
+                  setShowImplementation(!showImplementation);
+                  // Scroll to integration section
+                  setTimeout(() => {
+                    const integrationSection = document.getElementById('integration-section');
+                    if (integrationSection) {
+                      integrationSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100);
+                }}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   showImplementation 
                     ? 'bg-gray-900 text-white' 
@@ -213,25 +292,6 @@ function App() {
             Perfect for customer support, tutoring, and code assistance.
           </motion.p>
           
-          <motion.div 
-            className="flex items-center justify-center space-x-8 text-sm text-gray-500 mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <div className="flex items-center space-x-2">
-              <Zap className="w-4 h-4 text-blue-500" />
-              <span>TypeScript</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Sparkles className="w-4 h-4 text-purple-500" />
-              <span>4 Personas</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Brain className="w-4 h-4 text-green-500" />
-              <span>Context Aware</span>
-            </div>
-          </motion.div>
           
           <motion.div 
             className="text-sm text-gray-500"
@@ -248,7 +308,36 @@ function App() {
       <div className="flex-1 bg-gray-50 py-12">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-8">
-            <p className="text-gray-600">Interactive demo with persona switching</p>
+            <p className="text-gray-600">Interactive demo with persona switching and theme customization</p>
+            
+            {/* Theme Selector */}
+            <div className="mt-6 flex justify-center">
+              <div className="bg-white rounded-xl shadow-md border border-gray-200 p-4">
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Choose Theme</h4>
+                <div className="flex space-x-3">
+                  {themes.map((theme) => (
+                    <button
+                      key={theme.id}
+                      onClick={() => {
+                        setSelectedTheme(theme.id);
+                        setChatKey(prev => prev + 1);
+                      }}
+                      className={cn(
+                        "px-3 py-2 rounded-lg text-xs font-medium transition-all",
+                        selectedTheme === theme.id
+                          ? 'bg-gray-900 text-white shadow-md'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      )}
+                    >
+                      {theme.name}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  {themes.find(t => t.id === selectedTheme)?.description}
+                </p>
+              </div>
+            </div>
           </div>
           
           <div className="flex gap-6 items-start">
@@ -316,30 +405,52 @@ function App() {
             
             {/* Chat Dialogue Box */}
             <motion.div 
-              className="flex-1 max-w-2xl bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden"
+              className={cn(
+                "flex-1 max-w-2xl rounded-2xl shadow-lg overflow-hidden",
+                themes.find(t => t.id === selectedTheme)?.colors.background,
+                themes.find(t => t.id === selectedTheme)?.colors.border,
+                "border"
+              )}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
               {/* Chat Header */}
               <motion.div 
-                className="p-4 border-b border-gray-200 bg-white"
-                key={selectedPersona.id}
+                className={cn(
+                  "p-4 border-b",
+                  themes.find(t => t.id === selectedTheme)?.colors.background,
+                  themes.find(t => t.id === selectedTheme)?.colors.border
+                )}
+                key={`${selectedPersona.id}-${selectedTheme}`}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="flex items-center space-x-3">
                   <motion.div 
-                    className="w-10 h-10 bg-gray-900 rounded-xl flex items-center justify-center text-white"
+                    className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center text-white",
+                      themes.find(t => t.id === selectedTheme)?.colors.primary
+                    )}
                     whileHover={{ rotate: 5 }}
                     transition={{ duration: 0.2 }}
                   >
                     {selectedPersona.icon}
                   </motion.div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{selectedPersona.name}</h3>
-                    <p className="text-sm text-gray-600">{selectedPersona.description}</p>
+                    <h3 className={cn(
+                      "text-lg font-semibold",
+                      themes.find(t => t.id === selectedTheme)?.colors.text
+                    )}>
+                      {selectedPersona.name}
+                    </h3>
+                    <p className={cn(
+                      "text-sm",
+                      themes.find(t => t.id === selectedTheme)?.colors.accent
+                    )}>
+                      {selectedPersona.description}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -347,7 +458,7 @@ function App() {
               {/* Chat Interface */}
               <div className="h-[500px]">
                 <ChatInterface 
-                  key={chatKey}
+                  key={`${chatKey}-${selectedTheme}`}
                   persona={selectedPersona}
                 />
               </div>
@@ -358,7 +469,7 @@ function App() {
 
       {/* Implementation Instructions */}
       {showImplementation && (
-        <section className="bg-gray-100 border-t border-gray-200">
+        <section id="integration-section" className="bg-gray-100 border-t border-gray-200">
           <div className="max-w-6xl mx-auto px-6 py-12">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
@@ -402,6 +513,24 @@ function App() {
                   <code className="text-gray-100 text-sm font-mono whitespace-pre">
                     {usageCode}
                   </code>
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">3. That's it! Enjoy your new context-aware chat box component 🎉</h3>
+                <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                      <Check className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Your smart chat component is ready!</h4>
+                      <p className="text-sm text-gray-600">Start conversations with any of the 4 AI personas</p>
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    💡 <strong>Pro tip:</strong> Customize the context prop to make conversations more relevant to your domain
+                  </div>
                 </div>
               </div>
             </div>
