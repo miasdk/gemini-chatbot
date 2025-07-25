@@ -2,17 +2,15 @@
 
 A React component with intelligent AI personas powered by Google Gemini. Perfect for customer support, tutoring, and code assistance.
 
-## ✨ Features
+## Features
 
-- 🧠 **Google Gemini AI** - Fast, intelligent responses with Gemini 1.5 Flash
-- 🎭 **Multiple Personas** - Tutor, Assistant, Support Agent, Code Reviewer
-- 🎨 **Modern UI** - Animated interface with Framer Motion and shadcn/ui
-- 📱 **Responsive Design** - Works perfectly on desktop and mobile
-- 🔧 **TypeScript Ready** - Full type safety and IntelliSense support
-- 🎯 **Context Aware** - Domain-specific conversations with custom context
-- 📦 **Easy Integration** - Drop into any React application
+- **Google Gemini AI** - Fast, intelligent responses with Gemini 1.5 Flash
+- **Multiple Personas** - Tutor, Assistant, Support Agent, Code Reviewer
+- **TypeScript Ready** - Full type safety and IntelliSense support
+- **Context Aware** - Domain-specific conversations with custom context
+- **Easy Integration** - Drop into any React application
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -66,7 +64,7 @@ npm start
 
 Visit `http://localhost:3001` to see the interactive demo.
 
-## 🎭 Available Personas
+## Available Personas
 
 | Persona | Description | Best For |
 |---------|-------------|----------|
@@ -146,7 +144,7 @@ GET /api/health
 GET /api/chat/usage/:userId
 ```
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 gemini-chatbot/
@@ -164,7 +162,7 @@ gemini-chatbot/
 └── examples/              # Usage examples
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Custom Themes
 
@@ -190,7 +188,7 @@ const customPersona = {
 };
 ```
 
-## 🛡️ Security
+## Security
 
 - **API Key Protection** - Environment variables only
 - **Rate Limiting** - Prevents abuse (10 requests/15min)
@@ -198,7 +196,7 @@ const customPersona = {
 - **CORS Security** - Configurable origins
 - **Usage Limits** - Daily message limits per user
 
-## 🚀 Deployment
+## Deployment
 
 ### Vercel
 ```bash
@@ -223,19 +221,19 @@ CMD ["npm", "start"]
 2. Set environment variables
 3. Deploy with `npm run build && npm start`
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit changes: `git commit -m 'Add my feature'`
+4. Push to branch: `git push origin feature/my-feature`
 5. Open a Pull Request
 
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Google Gemini AI](https://ai.google.dev/) for the language model
 - [shadcn/ui](https://ui.shadcn.com/) for beautiful components
