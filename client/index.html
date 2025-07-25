@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini ChatBot - AI Component for React</title>
+    <meta name="description" content="A powerful, customizable AI chatbot component with multiple personas, context-aware conversations, and seamless React integration.">
+    <meta name="keywords" content="AI, chatbot, React, component, Gemini, TypeScript, chat, assistant">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gemini-chatbot.vercel.app/">
+    <meta property="og:title" content="Gemini ChatBot - AI Component for React">
+    <meta property="og:description" content="A powerful, customizable AI chatbot component with multiple personas and seamless React integration.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://gemini-chatbot.vercel.app/">
+    <meta property="twitter:title" content="Gemini ChatBot - AI Component for React">
+    <meta property="twitter:description" content="A powerful, customizable AI chatbot component with multiple personas and seamless React integration.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23667eea'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        mono: ['Monaco', 'Menlo', 'Ubuntu Mono', 'monospace']
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/main.tsx"></script>
+</body>
+</html>
