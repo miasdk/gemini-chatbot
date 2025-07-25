@@ -52,11 +52,11 @@ interface ThemeConfig {
 const themes: ThemeConfig[] = [
   {
     id: 'default',
-    name: 'Default',
-    description: 'Clean gray theme with professional look',
+    name: 'Professional',
+    description: 'Clean professional design with sophisticated grays',
     colors: {
-      primary: 'bg-gray-900',
-      secondary: 'bg-gray-50',
+      primary: 'bg-gradient-to-r from-gray-900 to-gray-800',
+      secondary: 'bg-gradient-to-br from-gray-50 to-white',
       background: 'bg-white',
       text: 'text-gray-900',
       border: 'border-gray-200',
@@ -65,24 +65,24 @@ const themes: ThemeConfig[] = [
   },
   {
     id: 'dark',
-    name: 'Dark Mode',
-    description: 'Elegant dark theme for low-light environments',
+    name: 'Dark Elite',
+    description: 'Premium dark theme with electric blue accents',
     colors: {
-      primary: 'bg-blue-600',
-      secondary: 'bg-gray-800',
+      primary: 'bg-gradient-to-r from-blue-600 to-purple-600',
+      secondary: 'bg-gradient-to-br from-gray-800 to-gray-900',
       background: 'bg-gray-900',
       text: 'text-white',
       border: 'border-gray-700',
-      accent: 'text-gray-300'
+      accent: 'text-blue-300'
     }
   },
   {
     id: 'modern',
-    name: 'Modern Blue',
-    description: 'Vibrant blue accents with modern styling',
+    name: 'Ocean Wave',
+    description: 'Fresh ocean-inspired theme with gradient blues',
     colors: {
-      primary: 'bg-blue-500',
-      secondary: 'bg-blue-50',
+      primary: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+      secondary: 'bg-gradient-to-br from-blue-50 to-cyan-50',
       background: 'bg-white',
       text: 'text-gray-900',
       border: 'border-blue-200',
@@ -91,15 +91,15 @@ const themes: ThemeConfig[] = [
   },
   {
     id: 'minimal',
-    name: 'Minimal',
-    description: 'Ultra-clean design with subtle accents',
+    name: 'Arctic Mint',
+    description: 'Ultra-clean minimal design with subtle mint accents',
     colors: {
-      primary: 'bg-slate-600',
-      secondary: 'bg-slate-50',
+      primary: 'bg-gradient-to-r from-slate-700 to-emerald-600',
+      secondary: 'bg-gradient-to-br from-slate-50 to-emerald-50',
       background: 'bg-white',
       text: 'text-slate-900',
       border: 'border-slate-200',
-      accent: 'text-slate-500'
+      accent: 'text-emerald-600'
     }
   }
 ];
@@ -246,9 +246,7 @@ function App() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
-                <Bot className="w-4 h-4 text-white" />
-              </div>
+              <Bot className="w-8 h-8 text-gray-900" />
               <div>
                 <h1 className="text-lg font-semibold text-gray-900">Gemini ChatBot</h1>
                 <div className="flex items-center space-x-2">
@@ -257,7 +255,7 @@ function App() {
                     serverStatus === 'disconnected' ? 'bg-red-500' : 'bg-gray-500'
                   }`}></div>
                   <span className="text-xs text-gray-500">
-                    {serverStatus === 'connected' ? 'Online' : 
+                    {serverStatus === 'connected' ? 'Connected' : 
                      serverStatus === 'disconnected' ? 'Offline' : 'Starting...'}
                   </span>
                 </div>
