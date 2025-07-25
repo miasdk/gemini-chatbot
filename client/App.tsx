@@ -230,6 +230,36 @@ function App() {
           </div>
           <h1 className="text-xl font-bold text-slate-900">Gemini ChatBot</h1>
         </div>
+        <div className="flex items-center space-x-4">
+          <button 
+            onClick={() => {
+              setShowImplementation(!showImplementation);
+              setTimeout(() => {
+                const integrationSection = document.getElementById('integration-section');
+                if (integrationSection) {
+                  integrationSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 100);
+            }}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              showImplementation 
+                ? 'bg-gray-900 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <Code className="w-4 h-4 inline mr-2" />
+            Integration
+          </button>
+          <a 
+            href="https://github.com/miasdk/gemini-chatbot" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <Github className="w-4 h-4" />
+            <span className="text-sm">GitHub</span>
+          </a>
+        </div>
       </header>
 
       {/* Enhanced Hero Section */}
