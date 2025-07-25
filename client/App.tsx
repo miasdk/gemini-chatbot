@@ -494,6 +494,7 @@ function App() {
                 <ChatInterface 
                   key={`${chatKey}-${selectedTheme}`}
                   persona={selectedPersona}
+                  theme={themes.find(t => t.id === selectedTheme)!}
                 />
               </div>
             </motion.div>
@@ -882,7 +883,7 @@ function App() {
 }
 
 // Embedded Chat Interface Component
-function ChatInterface({ persona }: { persona: PersonaConfig }) {
+function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: ThemeConfig }) {
   const [messages, setMessages] = useState<Array<{id: string, role: 'user' | 'assistant', content: string, timestamp: Date}>>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -1041,7 +1042,11 @@ function ChatInterface({ persona }: { persona: PersonaConfig }) {
       </div>
 
       {/* Enhanced Input */}
-      <div className="border-t border-gray-200 p-6 bg-white">
+      <div className={cn(
+        "border-t p-6",
+        theme.colors.background,
+        theme.colors.border
+      )}>
         <div className="flex items-end space-x-3">
           <div className="flex-1">
             <textarea
@@ -1049,7 +1054,12 @@ function ChatInterface({ persona }: { persona: PersonaConfig }) {
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder={`Message ${persona.name}...`}
-              className="w-full p-4 border border-gray-300 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+              className={cn(
+                "w-full p-4 rounded-xl resize-none focus:outline-none focus:ring-2 focus:border-transparent transition-all",
+                theme.id === 'dark' || theme.id === 'modern' 
+                  ? `bg-opacity-20 bg-white border-opacity-30 border-white ${theme.colors.text} placeholder-gray-300 focus:ring-white focus:ring-opacity-50`
+                  : "bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:ring-gray-900"
+              )}
               rows={1}
               style={{ minHeight: '52px', maxHeight: '120px' }}
               disabled={isLoading}
@@ -1058,11 +1068,14 @@ function ChatInterface({ persona }: { persona: PersonaConfig }) {
           <button
             onClick={sendMessage}
             disabled={!inputMessage.trim() || isLoading}
-            className={`p-3 rounded-xl transition-all transform hover:scale-105 ${
+            className={cn(
+              "p-3 rounded-xl transition-all transform hover:scale-105",
               inputMessage.trim() && !isLoading
-                ? 'bg-gray-900 text-white hover:bg-gray-800 shadow-md'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+                ? `${theme.colors.primary} text-white hover:opacity-90 shadow-md`
+                : theme.id === 'dark' || theme.id === 'modern'
+                  ? 'bg-white bg-opacity-20 text-gray-300 cursor-not-allowed'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            )}
           >
             <MessageCircle className="w-5 h-5" />
           </button>
