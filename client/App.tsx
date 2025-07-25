@@ -466,6 +466,247 @@ function App() {
         </div>
       </div>
 
+      {/* Display Configurations Section */}
+      <section className="bg-white py-16 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Display Configurations</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              See how the chat component appears in different layouts and positions when integrated into your application
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Floating Bottom Right */}
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
+                <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
+                  {/* Mock app background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-gray-50">
+                    <div className="p-4">
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-3/4"></div>
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-1/2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                  {/* Floating chat button */}
+                  <div className="absolute bottom-4 right-4">
+                    <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center shadow-lg">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Floating Chat Button</h3>
+                <p className="text-sm text-gray-600 mb-3">Bottom-right floating button that expands into chat window</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "bottom-right"</code>
+              </div>
+            </motion.div>
+
+            {/* Embedded Sidebar */}
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
+                <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
+                  <div className="flex h-full">
+                    {/* Main content */}
+                    <div className="flex-1 bg-gradient-to-br from-green-50 to-gray-50 p-4">
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-3/4"></div>
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-1/2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                    {/* Chat sidebar */}
+                    <div className="w-24 bg-white border-l border-gray-200 p-2">
+                      <div className="flex items-center space-x-1 mb-2">
+                        <Bot className="w-3 h-3 text-gray-600" />
+                        <div className="h-2 bg-gray-200 rounded flex-1"></div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="h-1.5 bg-gray-200 rounded w-full"></div>
+                        <div className="h-1.5 bg-gray-200 rounded w-3/4"></div>
+                        <div className="h-1.5 bg-blue-200 rounded w-1/2"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Embedded Sidebar</h3>
+                <p className="text-sm text-gray-600 mb-3">Integrated into your app's sidebar or navigation</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "sidebar"</code>
+              </div>
+            </motion.div>
+
+            {/* Modal/Popup */}
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
+                <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
+                  {/* Mock app background with overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-gray-50">
+                    <div className="p-4 opacity-50">
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-3/4"></div>
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-1/2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                  {/* Modal chat */}
+                  <div className="absolute inset-4 bg-white rounded-lg shadow-lg border border-gray-200 p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-1">
+                        <Bot className="w-3 h-3 text-gray-600" />
+                        <div className="h-2 bg-gray-200 rounded w-12"></div>
+                      </div>
+                      <div className="w-3 h-3 bg-gray-200 rounded"></div>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="h-1.5 bg-gray-200 rounded w-full"></div>
+                      <div className="h-1.5 bg-blue-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Modal Popup</h3>
+                <p className="text-sm text-gray-600 mb-3">Centered modal overlay with backdrop blur</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "modal"</code>
+              </div>
+            </motion.div>
+
+            {/* Inline Chat */}
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
+                <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
+                  <div className="p-4 space-y-3">
+                    {/* Page header */}
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    {/* Chat component inline */}
+                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <Bot className="w-4 h-4 text-gray-600" />
+                        <div className="h-2 bg-gray-200 rounded w-20"></div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="h-2 bg-gray-200 rounded w-full"></div>
+                        <div className="h-2 bg-blue-200 rounded w-3/4"></div>
+                      </div>
+                    </div>
+                    {/* More content */}
+                    <div className="space-y-2">
+                      <div className="h-3 bg-gray-200 rounded w-full"></div>
+                      <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Inline Component</h3>
+                <p className="text-sm text-gray-600 mb-3">Embedded directly within your page content</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "inline"</code>
+              </div>
+            </motion.div>
+
+            {/* Fullscreen */}
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
+                <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
+                  {/* Full chat interface */}
+                  <div className="h-full flex flex-col">
+                    {/* Header */}
+                    <div className="bg-gray-900 text-white p-2 flex items-center space-x-2">
+                      <Bot className="w-4 h-4" />
+                      <div className="h-2 bg-gray-300 rounded w-20"></div>
+                    </div>
+                    {/* Messages */}
+                    <div className="flex-1 p-3 space-y-2">
+                      <div className="h-2 bg-gray-200 rounded w-3/4"></div>
+                      <div className="h-2 bg-blue-200 rounded w-1/2 ml-auto"></div>
+                      <div className="h-2 bg-gray-200 rounded w-2/3"></div>
+                    </div>
+                    {/* Input */}
+                    <div className="border-t border-gray-200 p-2">
+                      <div className="h-3 bg-gray-100 rounded border"></div>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Fullscreen Chat</h3>
+                <p className="text-sm text-gray-600 mb-3">Dedicated chat page or full viewport experience</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "fullscreen"</code>
+              </div>
+            </motion.div>
+
+            {/* Custom Theme */}
+            <motion.div
+              className="group"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
+                <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
+                  {/* Custom themed chat */}
+                  <div className="h-full flex flex-col bg-gradient-to-br from-purple-900 to-blue-900">
+                    {/* Header */}
+                    <div className="bg-purple-800 text-white p-2 flex items-center space-x-2">
+                      <Bot className="w-4 h-4" />
+                      <div className="h-2 bg-purple-300 rounded w-16"></div>
+                    </div>
+                    {/* Messages */}
+                    <div className="flex-1 p-3 space-y-2">
+                      <div className="h-2 bg-purple-200 rounded w-3/4"></div>
+                      <div className="h-2 bg-blue-200 rounded w-1/2 ml-auto"></div>
+                      <div className="h-2 bg-purple-200 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Custom Themes</h3>
+                <p className="text-sm text-gray-600 mb-3">Match your brand colors and design system</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">theme: custom</code>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="text-center mt-12">
+            <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <Sparkles className="inline w-5 h-5 mr-2 text-blue-600" />
+                Fully Customizable
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Configure position, themes, personas, and behavior to match your application perfectly
+              </p>
+              <div className="flex justify-center space-x-4 text-sm">
+                <span className="bg-white px-3 py-1 rounded-full border border-blue-200">
+                  🎨 Custom Themes
+                </span>
+                <span className="bg-white px-3 py-1 rounded-full border border-blue-200">
+                  📱 Responsive Design
+                </span>
+                <span className="bg-white px-3 py-1 rounded-full border border-blue-200">
+                  🔧 TypeScript Ready
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Implementation Instructions */}
       {showImplementation && (
         <section id="integration-section" className="bg-gray-100 border-t border-gray-200">
