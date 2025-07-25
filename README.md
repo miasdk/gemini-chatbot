@@ -41,6 +41,8 @@ npm run dev:frontend # Starts frontend (port 3000)
 
 Visit `http://localhost:3000` to see the interactive demo.
 
+**Live Demo:** https://gemini-chat-component.vercel.app/
+
 ### 4. Use Components in Your App
 
 Copy the components you need from the project:
