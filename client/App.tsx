@@ -247,19 +247,7 @@ function App() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
               <Bot className="w-8 h-8 text-gray-900" />
-              <div>
-                <h1 className="text-lg font-semibold text-gray-900">Gemini ChatBot</h1>
-                <div className="flex items-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${
-                    serverStatus === 'connected' ? 'bg-green-500' :
-                    serverStatus === 'disconnected' ? 'bg-red-500' : 'bg-gray-500'
-                  }`}></div>
-                  <span className="text-xs text-gray-500">
-                    {serverStatus === 'connected' ? 'Connected' : 
-                     serverStatus === 'disconnected' ? 'Offline' : 'Starting...'}
-                  </span>
-                </div>
-              </div>
+              <h1 className="text-lg font-semibold text-gray-900">Gemini ChatBot</h1>
             </div>
             
             <div className="flex items-center space-x-2 sm:space-x-4">
@@ -734,6 +722,130 @@ function App() {
                 <span className="bg-white px-3 py-1 rounded-full border border-blue-200">
                   TypeScript Ready
                 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Custom Theme Implementation */}
+      <section className="bg-gray-50 py-12 sm:py-16 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Custom Theme Implementation</h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
+              Create your own themes to match your brand colors and design system
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
+              {/* Theme Interface */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Theme Interface</h3>
+                <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
+                  <code className="text-green-400 text-xs sm:text-sm font-mono whitespace-pre">
+{`interface ThemeConfig {
+  id: string;
+  name: string;
+  description: string;
+  colors: {
+    primary: string;     // Button & header gradients
+    secondary: string;   // Secondary backgrounds  
+    background: string;  // Main chat background
+    text: string;        // Primary text color
+    border: string;      // Border colors
+    accent: string;      // Accent text colors
+  };
+}`}
+                  </code>
+                </div>
+              </motion.div>
+
+              {/* Custom Theme Example */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Brand Theme Example</h3>
+                <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
+                  <code className="text-green-400 text-xs sm:text-sm font-mono whitespace-pre">
+{`const brandTheme: ThemeConfig = {
+  id: 'brand',
+  name: 'Company Brand',
+  description: 'Custom theme with brand colors',
+  colors: {
+    primary: 'bg-gradient-to-r from-purple-600 to-pink-600',
+    secondary: 'bg-gradient-to-br from-purple-50 to-pink-50',
+    background: 'bg-white',
+    text: 'text-gray-900',
+    border: 'border-purple-200',
+    accent: 'text-purple-600'
+  }
+};
+
+// Add to your themes array
+const themes = [...defaultThemes, brandTheme];`}
+                  </code>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Integration Example */}
+            <motion.div
+              className="mt-8 sm:mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">Theme Integration</h3>
+              <div className="bg-gray-900 rounded-lg p-4 sm:p-6 overflow-x-auto">
+                <code className="text-green-400 text-xs sm:text-sm font-mono whitespace-pre">
+{`// 1. Define your custom themes
+const customThemes = [
+  { id: 'corporate', name: 'Corporate', colors: { /* ... */ } },
+  { id: 'healthcare', name: 'Healthcare', colors: { /* ... */ } },
+  { id: 'education', name: 'Education', colors: { /* ... */ } }
+];
+
+// 2. Use in your component
+function App() {
+  const [selectedTheme, setSelectedTheme] = useState('corporate');
+  const currentTheme = customThemes.find(t => t.id === selectedTheme);
+  
+  return (
+    <ChatInterface 
+      persona={selectedPersona}
+      theme={currentTheme}
+    />
+  );
+}`}
+                </code>
+              </div>
+            </motion.div>
+
+            {/* Pro Tips */}
+            <div className="mt-8 sm:mt-12 bg-blue-50 rounded-xl p-6 border border-blue-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <Sparkles className="inline w-5 h-5 mr-2 text-blue-600" />
+                Pro Tips for Custom Themes
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-4 text-sm text-gray-700">
+                <div className="space-y-2">
+                  <p><strong>• Use CSS Variables:</strong> For dynamic theme switching</p>
+                  <p><strong>• Test Contrast:</strong> Ensure accessibility compliance</p>
+                  <p><strong>• Brand Consistency:</strong> Match your design system</p>
+                </div>
+                <div className="space-y-2">
+                  <p><strong>• Gradient Backgrounds:</strong> Create depth and interest</p>
+                  <p><strong>• Professional Colors:</strong> Consider your use case</p>
+                  <p><strong>• Dark Mode Support:</strong> Provide light/dark variants</p>
+                </div>
               </div>
             </div>
           </div>
