@@ -79,27 +79,27 @@ const themes: ThemeConfig[] = [
   {
     id: 'modern',
     name: 'Ocean',
-    description: 'Professional ocean theme with calming blues',
+    description: 'Deep ocean theme with teal accents and wave gradients',
     colors: {
-      primary: 'bg-gradient-to-r from-blue-500 to-blue-600',
-      secondary: 'bg-gradient-to-br from-blue-500 to-blue-600',
-      background: 'bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700',
+      primary: 'bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700',
+      secondary: 'bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-600',
+      background: 'bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900',
       text: 'text-white',
-      border: 'border-blue-400',
-      accent: 'text-blue-100'
+      border: 'border-cyan-400/30',
+      accent: 'text-cyan-200'
     }
   },
   {
     id: 'minimal',
     name: 'Mint',
-    description: 'Ultra-clean minimal design with subtle mint accents',
+    description: 'Fresh mint theme with sophisticated gradients and subtle shadows',
     colors: {
-      primary: 'bg-gradient-to-r from-slate-700 to-emerald-600',
-      secondary: 'bg-gradient-to-br from-slate-50 to-emerald-50',
-      background: 'bg-white',
-      text: 'text-slate-900',
-      border: 'border-slate-200',
-      accent: 'text-emerald-600'
+      primary: 'bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600',
+      secondary: 'bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50',
+      background: 'bg-gradient-to-br from-white via-emerald-50/30 to-cyan-50/20',
+      text: 'text-slate-800',
+      border: 'border-emerald-200/60',
+      accent: 'text-emerald-700'
     }
   }
 ];
@@ -203,18 +203,26 @@ GEMINI_API_KEY=your_gemini_api_key_here
 NODE_ENV=development
 PORT=3001
 
+# Optional: Advanced configuration
+# GEMINI_MODEL=gemini-1.5-flash
+# DEFAULT_PERSONA=assistant
+# USAGE_TRACKING=true
+# DAILY_MESSAGE_LIMIT=50
+# RATE_LIMIT_WINDOW_MS=900000
+# RATE_LIMIT_MAX_REQUESTS=10
+
 # 2. Start the development servers
 npm run dev          # Starts backend server (port 3001)
 npm run dev:frontend # Starts frontend (port 3000)`;
   
   const usageCode = `// Copy the components you need from the project:
-// - /client/components/ChatInterface (main chat component)
+// - /client/components/GeminiChatBot.tsx (main chat component)
 // - /client/components/ui/* (UI components)
 // - /server/* (backend API)
 
-// Example: Using ChatInterface in your React app
+// Example: Using GeminiChatBot in your React app
 import { useState } from 'react';
-import { ChatInterface } from './components/ChatInterface';
+import { GeminiChatBot } from './components/GeminiChatBot';
 
 const personas = [
   { 
@@ -231,7 +239,7 @@ function App() {
   
   return (
     <div className="app">
-      <ChatInterface 
+      <GeminiChatBot 
         persona={selectedPersona}
         key={selectedPersona.id}
       />
@@ -246,7 +254,7 @@ function App() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <Bot className="w-8 h-8 text-gray-900" />
+            <Sparkles className="w-5 h-5 mr-2 text-grey-600" />
               <h1 className="text-lg font-semibold text-gray-900">Gemini ChatBot</h1>
             </div>
             
@@ -746,11 +754,12 @@ function App() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Theme Structure</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Basic Theme Structure</h3>
                 <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
                   <code className="text-green-400 text-sm font-mono whitespace-pre">
 {`colors: {
   primary: 'bg-gradient-to-r from-blue-500 to-blue-600',
+  secondary: 'bg-gradient-to-br from-blue-500 to-blue-600',
   background: 'bg-white',
   text: 'text-gray-900',
   border: 'border-gray-200',
@@ -760,25 +769,26 @@ function App() {
                 </div>
               </motion.div>
 
-              {/* Custom Example */}
+              {/* Advanced Example */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Custom Example</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">Advanced Ocean Theme</h3>
                 <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
                   <code className="text-green-400 text-sm font-mono whitespace-pre">
 {`{
-  id: 'brand',
-  name: 'Brand',
-  description: 'Company colors',
+  id: 'modern',
+  name: 'Ocean',
+  description: 'Deep ocean theme with teal accents',
   colors: {
-    primary: 'bg-gradient-to-r from-purple-600 to-pink-600',
-    background: 'bg-white',
-    text: 'text-gray-900',
-    border: 'border-purple-200',
-    accent: 'text-purple-600'
+    primary: 'bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700',
+    secondary: 'bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-600',
+    background: 'bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900',
+    text: 'text-white',
+    border: 'border-cyan-400/30',
+    accent: 'text-cyan-200'
   }
 }`}
                   </code>
@@ -789,13 +799,14 @@ function App() {
             {/* Quick Tips */}
             <div className="mt-8 bg-blue-50 rounded-xl p-6 border border-blue-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                <Sparkles className="inline w-5 h-5 mr-2 text-blue-600" />
-                Quick Tips
+                Advanced Theming Tips
               </h3>
-              <div className="text-sm text-gray-700 space-y-1">
-                <p>• Use Tailwind CSS classes like <code className="bg-white px-1 rounded">bg-blue-500</code></p>
-                <p>• Test color contrast for accessibility</p>
-                <p>• Gradients work great for backgrounds and buttons</p>
+              <div className="text-sm text-gray-700 space-y-2">
+                <p>• <strong>Gradients:</strong> Use <code className="bg-white px-1 rounded">from-cyan-600 via-blue-600 to-indigo-700</code></p>
+                <p>• <strong>Transparency:</strong> Add <code className="bg-white px-1 rounded">/30</code> for subtle borders</p>
+                <p>• <strong>Glass Effects:</strong> Combine <code className="bg-white px-1 rounded">backdrop-blur-sm</code> with transparency</p>
+                <p>• <strong>Multi-stop Gradients:</strong> Use <code className="bg-white px-1 rounded">via-</code> for complex backgrounds</p>
+                <p>• <strong>Accessibility:</strong> Ensure sufficient contrast ratios</p>
               </div>
             </div>
           </div>
@@ -870,14 +881,14 @@ function App() {
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">4. That's it! Your AI chat component is ready 🎉</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">4. That's it!</h3>
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6">
                   <div className="flex items-center space-x-3 mb-3">
                     <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                       <Check className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Your smart chat component is ready!</h4>
+                      <h4 className="font-semibold text-gray-900">Your smart chat component is ready! </h4>
                       <p className="text-sm text-gray-600">Start conversations with any of the 4 AI personas</p>
                     </div>
                   </div>
@@ -908,9 +919,7 @@ function App() {
       <footer className="bg-gray-900 text-white py-6 sm:py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-              <Bot className="w-4 h-4 text-gray-900" />
-            </div>
+            <Sparkles className="inline w-5 h-5 mr-2 text-white-600" />
             <span className="text-lg font-semibold">Gemini ChatBot</span>
           </div>
           
@@ -1023,7 +1032,7 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.length === 1 && (
           <div className="text-center py-8">
-            <h3 className="text-lg font-semibold mb-4">Sample Questions</h3>
+            <h3 className={cn("text-lg font-semibold mb-4", theme.colors.text)}>Sample Questions</h3>
             <div className="grid gap-3 max-w-md mx-auto">
               {persona.sampleMessages.map((sample, idx) => (
                 <button
@@ -1031,10 +1040,22 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
                   onClick={() => {
                     setInputMessage(sample);
                   }}
-                  className="text-left p-3 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all text-sm text-gray-700 hover:text-gray-900"
+                  className={cn(
+                    "text-left p-3 rounded-lg hover:shadow-sm transition-all text-sm",
+                    theme.id === 'dark'
+                      ? "bg-slate-700 border border-slate-600 text-white hover:border-slate-500 hover:bg-slate-600"
+                      : theme.id === 'modern'
+                      ? "bg-gradient-to-r from-cyan-600/80 to-indigo-600/80 border border-cyan-400/50 text-white hover:border-cyan-300 hover:from-cyan-500/90 hover:to-indigo-500/90 backdrop-blur-sm"
+                      : theme.id === 'minimal'
+                      ? "bg-gradient-to-r from-emerald-50 to-cyan-50 border border-emerald-200/60 text-emerald-800 hover:border-emerald-300 hover:from-emerald-100 hover:to-cyan-100 shadow-sm"
+                      : "bg-white border border-gray-200 text-gray-700 hover:border-gray-300 hover:text-gray-900"
+                  )}
                 >
                   <div className="flex items-center space-x-2">
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <ChevronRight className={cn(
+                      "w-4 h-4",
+                      theme.id === 'dark' ? "text-slate-400" : theme.id === 'modern' ? "text-cyan-300" : theme.id === 'minimal' ? "text-emerald-500" : "text-gray-400"
+                    )} />
                     <span>"{sample}"</span>
                   </div>
                 </button>
@@ -1048,16 +1069,32 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
             <div className={`flex items-start space-x-3 max-w-[80%] ${message.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                 message.role === 'user' 
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-gray-200 text-gray-700'
+                  ? theme.id === 'modern' 
+                    ? 'bg-gradient-to-r from-cyan-600 to-indigo-600 text-white'
+                    : theme.id === 'minimal'
+                    ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 text-white'
+                    : 'bg-gray-900 text-white'
+                  : theme.id === 'modern'
+                    ? 'bg-cyan-200/20 text-cyan-100 border border-cyan-300/30'
+                    : theme.id === 'minimal'
+                    ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                    : 'bg-gray-200 text-gray-700'
               }`}>
                 {message.role === 'user' ? <User className="w-4 h-4" /> : persona.icon}
               </div>
               
               <div className={`rounded-xl px-4 py-3 shadow-sm ${
                 message.role === 'user'
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-white border border-gray-200 text-gray-900'
+                  ? theme.id === 'modern'
+                    ? 'bg-gradient-to-r from-cyan-600 to-indigo-600 text-white'
+                    : theme.id === 'minimal'
+                    ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 text-white'
+                    : 'bg-gray-900 text-white'
+                  : theme.id === 'modern'
+                    ? 'bg-cyan-50/10 border border-cyan-300/30 text-white backdrop-blur-sm'
+                    : theme.id === 'minimal'
+                    ? 'bg-emerald-50/80 border border-emerald-200/60 text-emerald-900 backdrop-blur-sm'
+                    : 'bg-white border border-gray-200 text-gray-900'
               }`}>
                 <div className="text-sm leading-relaxed prose prose-sm max-w-none">
                   <ReactMarkdown 
@@ -1076,7 +1113,9 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
                   </ReactMarkdown>
                 </div>
                 <div className={`text-xs mt-2 ${
-                  message.role === 'user' ? 'text-gray-300' : 'text-gray-500'
+                  message.role === 'user' 
+                    ? theme.id === 'modern' ? 'text-cyan-200' : theme.id === 'minimal' ? 'text-emerald-100' : 'text-gray-300'
+                    : theme.id === 'modern' ? 'text-cyan-300' : theme.id === 'minimal' ? 'text-emerald-600' : 'text-gray-500'
                 }`}>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </div>
@@ -1088,14 +1127,37 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
         {isLoading && (
           <div className="flex justify-start">
             <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-700">
+              <div className={cn(
+                "w-8 h-8 rounded-full flex items-center justify-center",
+                theme.id === 'modern'
+                  ? "bg-cyan-200/20 text-cyan-100 border border-cyan-300/30"
+                  : theme.id === 'minimal'
+                  ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+                  : "bg-gray-200 text-gray-700"
+              )}>
                 {persona.icon}
               </div>
-              <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
+              <div className={cn(
+                "rounded-lg px-4 py-3",
+                theme.id === 'modern'
+                  ? "bg-cyan-50/10 border border-cyan-300/30 backdrop-blur-sm"
+                  : theme.id === 'minimal'
+                  ? "bg-emerald-50/80 border border-emerald-200/60 backdrop-blur-sm"
+                  : "bg-white border border-gray-200"
+              )}>
                 <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                  <div className={cn(
+                    "w-2 h-2 rounded-full animate-bounce",
+                    theme.id === 'modern' ? "bg-cyan-400" : theme.id === 'minimal' ? "bg-emerald-400" : "bg-gray-400"
+                  )}></div>
+                  <div className={cn(
+                    "w-2 h-2 rounded-full animate-bounce",
+                    theme.id === 'modern' ? "bg-cyan-400" : theme.id === 'minimal' ? "bg-emerald-400" : "bg-gray-400"
+                  )} style={{animationDelay: '0.1s'}}></div>
+                  <div className={cn(
+                    "w-2 h-2 rounded-full animate-bounce",
+                    theme.id === 'modern' ? "bg-cyan-400" : theme.id === 'minimal' ? "bg-emerald-400" : "bg-gray-400"
+                  )} style={{animationDelay: '0.2s'}}></div>
                 </div>
               </div>
             </div>
@@ -1121,7 +1183,9 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
                 theme.id === 'dark'
                   ? "bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:ring-slate-500"
                   : theme.id === 'modern' 
-                  ? "bg-blue-600 border border-blue-500 text-white placeholder-blue-200 focus:ring-blue-400"
+                  ? "bg-cyan-600/20 border border-cyan-400/50 text-white placeholder-cyan-200 focus:ring-cyan-400 backdrop-blur-sm"
+                  : theme.id === 'minimal'
+                  ? "bg-emerald-50/80 border border-emerald-200/60 text-emerald-900 placeholder-emerald-600 focus:ring-emerald-500 backdrop-blur-sm"
                   : "bg-white border border-gray-300 text-gray-900 placeholder-gray-500 focus:ring-gray-900"
               )}
               rows={1}
