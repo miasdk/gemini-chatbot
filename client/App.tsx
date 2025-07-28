@@ -1023,7 +1023,7 @@ function ChatInterface({ persona, theme }: { persona: PersonaConfig; theme: Them
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.length === 1 && (
           <div className="text-center py-8">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Sample Questions</h3>
+            <h3 className="text-lg font-semibold mb-4">Sample Questions</h3>
             <div className="grid gap-3 max-w-md mx-auto">
               {persona.sampleMessages.map((sample, idx) => (
                 <button
