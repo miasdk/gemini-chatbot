@@ -539,7 +539,7 @@ function App() {
               </div>
             </motion.div>
 
-            {/* Embedded Sidebar */}
+            {/* Top Left Position */}
             <motion.div
               className="group"
               initial={{ opacity: 0, y: 20 }}
@@ -555,27 +555,19 @@ function App() {
                       <div className="h-3 bg-gray-200 rounded mb-2 w-1/2"></div>
                       <div className="h-3 bg-gray-200 rounded w-2/3"></div>
                     </div>
-                    {/* Chat sidebar */}
-                    <div className="w-24 bg-white border-l border-gray-200 p-2">
-                      <div className="flex items-center space-x-1 mb-2">
-                        <Bot className="w-3 h-3 text-gray-600" />
-                        <div className="h-2 bg-gray-200 rounded flex-1"></div>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="h-1.5 bg-gray-200 rounded w-full"></div>
-                        <div className="h-1.5 bg-gray-200 rounded w-3/4"></div>
-                        <div className="h-1.5 bg-blue-200 rounded w-1/2"></div>
-                      </div>
+                    {/* Chat in top-left corner */}
+                    <div className="absolute top-2 left-2 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                      <MessageCircle className="w-6 h-6 text-white" />
                     </div>
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Embedded Sidebar</h3>
-                <p className="text-sm text-gray-600 mb-3">Integrated into your app's sidebar or navigation</p>
-                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "sidebar"</code>
+                <h3 className="font-semibold text-gray-900 mb-2">Top Left Position</h3>
+                <p className="text-sm text-gray-600 mb-3">Fixed position in top-left corner</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "top-left"</code>
               </div>
             </motion.div>
 
-            {/* Modal/Popup */}
+            {/* Top Right Position */}
             <motion.div
               className="group"
               initial={{ opacity: 0, y: 20 }}
@@ -584,36 +576,26 @@ function App() {
             >
               <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
                 <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
-                  {/* Mock app background with overlay */}
+                  {/* Mock app background */}
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-gray-50">
-                    <div className="p-4 opacity-50">
+                    <div className="p-4">
                       <div className="h-3 bg-gray-200 rounded mb-2 w-3/4"></div>
                       <div className="h-3 bg-gray-200 rounded mb-2 w-1/2"></div>
                       <div className="h-3 bg-gray-200 rounded w-2/3"></div>
                     </div>
                   </div>
-                  {/* Modal chat */}
-                  <div className="absolute inset-4 bg-white rounded-lg shadow-lg border border-gray-200 p-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-1">
-                        <Bot className="w-3 h-3 text-gray-600" />
-                        <div className="h-2 bg-gray-200 rounded w-12"></div>
-                      </div>
-                      <div className="w-3 h-3 bg-gray-200 rounded"></div>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="h-1.5 bg-gray-200 rounded w-full"></div>
-                      <div className="h-1.5 bg-blue-200 rounded w-2/3"></div>
-                    </div>
+                  {/* Chat in top-right corner */}
+                  <div className="absolute top-2 right-2 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                    <MessageCircle className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Modal Popup</h3>
-                <p className="text-sm text-gray-600 mb-3">Centered modal overlay with backdrop blur</p>
-                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "modal"</code>
+                <h3 className="font-semibold text-gray-900 mb-2">Top Right Position</h3>
+                <p className="text-sm text-gray-600 mb-3">Fixed position in top-right corner</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "top-right"</code>
               </div>
             </motion.div>
 
-            {/* Inline Chat */}
+            {/* Bottom Left Position */}
             <motion.div
               className="group"
               initial={{ opacity: 0, y: 20 }}
@@ -625,31 +607,25 @@ function App() {
                   <div className="p-4 space-y-3">
                     {/* Page header */}
                     <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                    {/* Chat component inline */}
-                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Bot className="w-4 h-4 text-gray-600" />
-                        <div className="h-2 bg-gray-200 rounded w-20"></div>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="h-2 bg-gray-200 rounded w-full"></div>
-                        <div className="h-2 bg-blue-200 rounded w-3/4"></div>
-                      </div>
-                    </div>
-                    {/* More content */}
+                    {/* Main content */}
                     <div className="space-y-2">
                       <div className="h-3 bg-gray-200 rounded w-full"></div>
                       <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                      <div className="h-3 bg-gray-200 rounded w-3/4"></div>
+                    </div>
+                    {/* Chat in bottom-left corner */}
+                    <div className="absolute bottom-4 left-4 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                      <MessageCircle className="w-6 h-6 text-white" />
                     </div>
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Inline Component</h3>
-                <p className="text-sm text-gray-600 mb-3">Embedded directly within your page content</p>
-                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "inline"</code>
+                <h3 className="font-semibold text-gray-900 mb-2">Bottom Left Position</h3>
+                <p className="text-sm text-gray-600 mb-3">Fixed position in bottom-left corner</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "bottom-left"</code>
               </div>
             </motion.div>
 
-            {/* Fullscreen */}
+            {/* Bottom Right Position (Default) */}
             <motion.div
               className="group"
               initial={{ opacity: 0, y: 20 }}
@@ -658,28 +634,22 @@ function App() {
             >
               <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200 hover:border-gray-300 transition-colors">
                 <div className="relative bg-white rounded-lg h-48 border border-gray-200 overflow-hidden mb-4">
-                  {/* Full chat interface */}
-                  <div className="h-full flex flex-col">
-                    {/* Header */}
-                    <div className="bg-gray-900 text-white p-2 flex items-center space-x-2">
-                      <Bot className="w-4 h-4" />
-                      <div className="h-2 bg-gray-300 rounded w-20"></div>
-                    </div>
-                    {/* Messages */}
-                    <div className="flex-1 p-3 space-y-2">
-                      <div className="h-2 bg-gray-200 rounded w-3/4"></div>
-                      <div className="h-2 bg-blue-200 rounded w-1/2 ml-auto"></div>
-                      <div className="h-2 bg-gray-200 rounded w-2/3"></div>
-                    </div>
-                    {/* Input */}
-                    <div className="border-t border-gray-200 p-2">
-                      <div className="h-3 bg-gray-100 rounded border"></div>
+                  {/* Mock app background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-gray-50">
+                    <div className="p-4">
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-3/4"></div>
+                      <div className="h-3 bg-gray-200 rounded mb-2 w-1/2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-2/3"></div>
                     </div>
                   </div>
+                  {/* Chat in bottom-right corner */}
+                  <div className="absolute bottom-4 right-4 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                    <MessageCircle className="w-6 h-6 text-white" />
+                  </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Fullscreen Chat</h3>
-                <p className="text-sm text-gray-600 mb-3">Dedicated chat page or full viewport experience</p>
-                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "fullscreen"</code>
+                <h3 className="font-semibold text-gray-900 mb-2">Bottom Right Position</h3>
+                <p className="text-sm text-gray-600 mb-3">Default floating position (bottom-right corner)</p>
+                <code className="text-xs bg-gray-100 px-2 py-1 rounded">position: "bottom-right"</code>
               </div>
             </motion.div>
 
